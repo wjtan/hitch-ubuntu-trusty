@@ -116,7 +116,7 @@ Before we continue to requesting our certificate we need to generate a Diffie-He
 
     sudo openssl dhparam -out /var/lib/acme/conf/dhparams 2048
 
-Now we can finally get our certificate (replace `example.com` with your hostname):
+Now we can finally get our certificate (replace `example.com` with your FQDN):
 
     sudo acmetool want example.com
 
@@ -134,7 +134,7 @@ Now we can finally get our certificate (replace `example.com` with your hostname
     backend  = "[::1]:80"
 
     # List of PEM files, each with key, certificates and dhparams
-    # Replace example.com with your hostname)
+    # Replace example.com with your FQDN.
     pem-file = "/var/lib/acme/live/example.com/haproxy"
 
 Create the user and group to run `hitch`:
@@ -145,6 +145,10 @@ Create the user and group to run `hitch`:
 Start Hitch with the new configuration:
 
     sudo hitch -u hitch -g hitch --config=/etc/hitch/hitch.conf
+
+Remember to open the https port on the firewall:
+
+    utw allow https
 
 ## Init scripts
 
